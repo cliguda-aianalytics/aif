@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run:[PRJ_PATH_ABSOLUT]/*)",
+      "Bash(mkdir:[PRJ_PATH_ABSOLUT]/aif/ai_analytics/*)",
+      "Read([PRJ_PATH_ABSOLUT]/*)",
+      "Write([PRJ_PATH_ABSOLUT]/aif/ai_analytics/*)",
+      "Edit([PRJ_PATH_ABSOLUT]/aif/ai_analytics/*)",
+      "MultiEdit([PRJ_PATH_ABSOLUT]/aif/ai_analytics/*)",
+      "Glob([PRJ_PATH_ABSOLUT]/*)",
+      "Grep([PRJ_PATH_ABSOLUT]/*)",
+      "LS([PRJ_PATH_ABSOLUT]/*)",
+      "TOUCH([PRJ_PATH_ABSOLUT]/*)",
+      "NotebookRead([PRJ_PATH_ABSOLUT]/*)",
+      "NotebookEdit([PRJ_PATH_ABSOLUT]/aif/ai_analytics/*)",
+      "Bash(mv:[PRJ_PATH_ABSOLUT]/*)",
+      "Bash(rg:[PRJ_PATH_ABSOLUT]/*)",
+      "Bash(find:[PRJ_PATH_ABSOLUT]/*)",
+      "Bash(grep:[PRJ_PATH_ABSOLUT]/*)"
+    ],
+    "deny": [
+      "Bash(git:*)"
+    ]
+  }
+}

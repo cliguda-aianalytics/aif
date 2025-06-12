@@ -1,0 +1,3 @@
+load_from:
+  - python_module: aif.ai_analytics.dwh_finance.definitions
+  - python_module: aif.ai_analytics.dwh_use_cases.definitions

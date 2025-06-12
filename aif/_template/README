@@ -1,0 +1,38 @@
+The schema_template folder can be copied for all sub-packages to provide a common project structure.
+
+A sub-package should focus on one main database schema, which should also be the sub-package name.
+
+In example, if you load data from Google Analytics into the DWH, create a folder raw_google_analytics in /dwh/, where
+you can place all SQL statements in resources/sql/ to create the schema and tables. Pandera data-validation schemas can
+be places in src/ together with a Python code that is relevant for that schema. All Dagster assets (tables, views,
+etl pipelines) are places in wf/.
+
+If you work in teams (or chapters/squads), a database schema per team can help to organise all database objects that
+are created by that team. Those database objects should not be used in production.
+
+Delete all irrelevant folders for your sub-package to keep the project structure clean.
+
+TEMPLATE STRUCTURE:
+(Non Python folders contain a PLACEHOLDER file, because empty folders are not included by git. Those files can be
+removed in your aub-packages)
+
+- notebooks     All Jupyter Notebooks (mainly in the "analytics" package)
+- resources     All Non Python Code
+  - config      All Yaml config files that do not depend on the environment
+    - dev       For environment "dev" (local development)
+    - dev_test  When running PyTests, the dev environment is changed to dev_test to use a local DB for testing
+    - prod      For the production environment (should read credentials from environment variables)
+    - test      Used within the CI/CD Pipeline to connect to a dedicated Test-DB
+  - ml_models   Save simple ml_models direct in the repository for simple deployment
+  - prompts     Save good prompts in the repository
+  - sql         All SQL statements
+    - ddl       All definitions like CREATE TABLE ...
+    - dml       All modifications like INSERT ...
+    - dql       All complex queries like SELECT ...
+- scripts       Python files, that are not regular workflows, e.g. db init scripts to create a schemas and tables
+- src           Place all Python code (classes, functions,...) here. Executable files should be in scripts or wf
+- test          PyTest tests
+  - sql_tests   SQL tests depend on a reachable SQL database and are therefor no Unittest.
+                (DB config in "dev_test/" when run locally or "test/" when run in the CICD pipeline)
+  - unit_tests  Classical Unit-Tests
+- wf            Workflows/Dagster Assets

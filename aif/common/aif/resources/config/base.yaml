@@ -1,0 +1,9 @@
+common:
+  default_db: 'dwh_use_cases'
+
+logging:
+  log_aif_console_level: 'debug'               # debug, info
+  log_aif_file_level: 'debug'                 # Loglevel for messages from aif to file
+  log_aif_filename: '/log/logging_aif.log'    # In addition to the console, all aif logs are going to a file
+  log_root_file_level: 'info'                 # Loglevel for messages from root logger to file
+  log_root_filename: '/log/logging_root.log'  # For libraries using the default logger.

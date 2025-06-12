@@ -1,0 +1,13 @@
+# CLAUDE.local.md
+This is only relevant for user specific knowledge.
+
+## Local Environment Paths
+If the project folder is named "aif" AIs have problems with the aif/aif/... path names. Therefore, we need to make it
+specific here. <PRJ_PATH_ROOT> needs to be replaced! (AND THEN DELETE THIS LINE)
+
+**Project Base Directory**: `<PRJ_PATH_ROOT>`
+
+**Important Path Note**: 
+- The project structure contains `<PRJ_PATH_ROOT>/aif/` 
+- This is correct: the first `/aif/` is the project base directory, the second `/aif/` is the main project folder
+- Therefore, paths like `<PRJ_PATH_ROOT>/aif/ai_analytics/` are correct and expected.

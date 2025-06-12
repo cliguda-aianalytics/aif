@@ -1,0 +1,53 @@
+"""ETL asset for <ASSET_NAME> table in <SCHEMA_NAME> schema.
+
+This module defines the Dagster ETL asset that loads data from <DATA_SOURCE> into the
+<ASSET_NAME> table in the <SCHEMA_NAME> schema. <ETL_DESCRIPTION>
+"""
+
+import dagster as dg
+
+from aif.common.aif.src.initialization import initialize_aif
+from aif.common.dagster.util import run_jobs_for_assets
+from aif.<PRJ_NAME>.<DWH_NAME>.<SCHEMA_NAME> import DWH_NAME, SCHEMA_NAME
+from aif.<PRJ_NAME>.<DWH_NAME>.<SCHEMA_NAME>.src.<asset_name_lowercase>_etl import <ETL_CLASS_NAME>
+
+
+CONFIG_FILES = [
+    "aif/common/aif/resources/config/base.yaml",
+    "aif/<PRJ_NAME>/resources/config/{ENV}/dwh.yaml",
+]
+
+
+@dg.asset(
+    key_prefix=[DWH_NAME, SCHEMA_NAME],
+    name="<ASSET_NAME>_ETL",
+    description="<ETL_DESCRIPTION>",
+    group_name=f"{DWH_NAME}_{SCHEMA_NAME}",
+    deps=[dg.SourceAsset(key=dg.AssetKey([DWH_NAME, SCHEMA_NAME, "<ASSET_NAME>"]))],
+)
+def asset_<asset_name_lowercase>_etl() -> dg.MaterializeResult:
+    """Execute the ETL pipeline to load data from <DATA_SOURCE> into the <ASSET_NAME> table.
+
+    This asset follows the minimal transformation principle: it extracts data from <DATA_SOURCE>,
+    applies only essential transformations (type conversions, JSON flattening), and loads raw data
+    into the <ASSET_NAME> table. Most data processing should be done in subsequent DWH layers.
+
+    Returns:
+        dg.MaterializeResult: A Dagster materialization result containing metadata about the operation.
+
+    Raises:
+        Exception: Any exception that might occur during the ETL process, such as data source access issues,
+                  data transformation errors, or database operations failures.
+    """
+    initialize_aif(config_files=CONFIG_FILES)
+
+    etl = <ETL_CLASS_NAME>(
+        # Add ETL parameters here based on data source
+        fail_on_missing_entries=False
+    )
+
+    return etl.run()
+
+
+if __name__ == "__main__":
+    run_jobs_for_assets([asset_<asset_name_lowercase>_etl])

@@ -1,0 +1,15 @@
+DWH_FINANCE:
+  type: postgres
+  host: ${AIF_DB_IP}
+  port: 5432
+  user: aif_test
+  password: xxx
+  db_name: dwh_test
+
+DWH_USE_CASES:
+  type: postgres
+  host: ${AIF_DB_IP}
+  port: 5432
+  user: aif_test
+  password: xxx
+  db_name: dwh_test

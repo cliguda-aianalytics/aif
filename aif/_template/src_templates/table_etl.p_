@@ -1,0 +1,100 @@
+"""ETL script for <ASSET_NAME> in <SCHEMA_NAME>.
+
+This module implements minimal transformation ETL logic for loading data from <DATA_SOURCE> into
+the <ASSET_NAME> table in the <SCHEMA_NAME> schema. Follows the principle of performing only
+essential transformations - most data processing should happen in subsequent DWH layers.
+<ETL_DESCRIPTION>
+"""
+
+import pandas as pd
+
+from aif.common.aif.src.data_interfaces.db_interface import DBInterface
+from aif.common.dagster.asset_etl import ETLAsset
+from aif.<PRJ_NAME>.<DWH_NAME>.<SCHEMA_NAME> import SCHEMA_NAME
+
+
+class <ETL_CLASS_NAME>(ETLAsset):
+    """Implements minimal transformation ETL logic for the <ASSET_NAME> data table.
+
+    This class extracts data from <DATA_SOURCE>, applies only essential transformations
+    (type conversions, JSON flattening), and loads raw data into the <ASSET_NAME> table.
+    Heavy data processing is intentionally avoided - it should be done in DWH SQL layers.
+    """
+
+    def __init__(self, fail_on_missing_entries: bool = False) -> None:
+        """Initialize the ETL pipeline.
+
+        Args:
+            fail_on_missing_entries: Whether to fail if some entries cannot be loaded.
+        """
+        super().__init__(fail_on_missing_entries)
+        # Add custom parameters here as needed:
+        # def __init__(self, fail_on_missing_entries: bool = False, custom_param: str = "default") -> None:
+
+    def extract(self) -> pd.DataFrame:
+        """Extract data from <DATA_SOURCE>.
+
+        Returns:
+            pd.DataFrame: Raw data extracted from the source.
+
+        Raises:
+            RuntimeError: If no data was extracted or source is unavailable.
+        """
+        # TODO: Implement extraction logic based on DATA_SOURCE type
+        # See "Common Data Source Patterns" section in create_etl.md task for examples
+        
+        # Placeholder - replace with actual implementation
+        df = pd.DataFrame()
+        
+        if df.empty:
+            raise RuntimeError("No data was extracted from the source.")
+        
+        return df
+
+    def transform(self, df: pd.DataFrame) -> pd.DataFrame:
+        """Apply minimal transformations required for database loading.
+
+        IMPORTANT: Only perform essential transformations here. Most data processing
+        should be done in the DWH using SQL in subsequent layers (PRE, INT, CORE).
+
+        Args:
+            df: Raw data from the extract step.
+
+        Returns:
+            pd.DataFrame: Minimally transformed data ready for database loading.
+        """
+        # TODO: Implement ONLY essential transformations
+        # See "Minimal Transformation Philosophy" section in create_etl.md task for guidance
+        
+        # Apply only essential transformations (type conversions, JSON flattening, critical fixes)
+        # Avoid data cleaning, business logic, aggregations - do those in DWH SQL layers
+        
+        return df
+
+    def load(self, df: pd.DataFrame) -> int:
+        """Load transformed data into the database.
+
+        Args:
+            df: Transformed data to be loaded.
+
+        Returns:
+            int: Number of rows that could not be loaded into the database.
+        """
+        with DBInterface(db_cfg="<DWH_NAME>") as db:
+            # Option 1: Simple insert (most common)
+            db_res = db.execute_insert(
+                data_df=df,
+                schema=SCHEMA_NAME,
+                table_name="<ASSET_NAME>",
+            )
+            
+            # Option 2: Insert with custom SQL file
+            # db_res = db.execute_insert(
+            #     data_df=df,
+            #     schema=SCHEMA_NAME,
+            #     table_name="<ASSET_NAME>",
+            #     filename="<DML_FILENAME>",
+            #     parameters={"custom_param": "value"},
+            # )
+
+        return db_res.metadata["missing"]
