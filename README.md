@@ -20,6 +20,10 @@ Our professional version includes:
 - Advanced ETL Pipelines for Dagster
 - Constantly improving ai-tasks
 
+# AI Knowledge and Tasks
+To understand how we use AI to operate on our codebase, check CLAUDE.md for general knowledge
+and the resources/ai/tasks folder for individual tasks.
+
 # Requirements
 
 ## Note
