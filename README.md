@@ -5,7 +5,8 @@ together with data analytics, ML and AI applications.
 AIF is an AI-first project, leveraging to power of AI for building a Data-Platform. We provide knowledge and task 
 descriptions optimized for Claude Code.
 
-To see AIF in action, visit https://www.youtube.com/channel/UCxBXSrE6dmleUEv1cAXpbkg.
+To see AIF in action:
+[AI Coding Warm-up](https://youtu.be/Uumr52E5o3g)
 
 To get into the vibe, use Claude Code for going through the setup process, especially if a
 command is not working (install routine was tested on Ubuntu 24, but AI can help to adjust it).
